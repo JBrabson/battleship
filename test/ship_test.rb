@@ -16,4 +16,6 @@ class ShipTest < MiniTest::Test
     assert_equal 3, cruiser.length
     assert_equal 3, cruiser.health
   end
+
+  
 end
