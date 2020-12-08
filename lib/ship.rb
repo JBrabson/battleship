@@ -1,5 +1,10 @@
 class Ship
-  def initialize(argument, argument2)
-    @argument = argument
+  def initialize(name, argument2)
+    @name = name
   end
+
+  def name
+    @name
+  end
+  
 end
