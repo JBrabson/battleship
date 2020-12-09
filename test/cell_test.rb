@@ -8,4 +8,10 @@ class Test < Minitest::Test
     cell = Cell.new("B4")
     assert_instance_of Cell, cell
   end
+
+  def test_it_attributes
+    cell = Cell.new("B4")
+    assert_equal "B4", cell.coordinate
+    assert_equal nil, cell.ship
+  end
 end
