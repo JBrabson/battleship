@@ -4,6 +4,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @been_hit = false
   end
 
   def empty?
@@ -12,5 +13,9 @@ class Cell
 
   def place_ship(ship_obj)
     @ship = ship_obj
+  end
+
+  def fired_upon?
+    @been_hit
   end
 end
