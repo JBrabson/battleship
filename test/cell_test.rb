@@ -14,4 +14,9 @@ class Test < Minitest::Test
     assert_equal "B4", cell.coordinate
     assert_equal nil, cell.ship
   end
+
+  def test_cell_is_empty_by_default
+    cell = Cell.new("B4")
+    assert_equal true, cell.empty?
+  end
 end
