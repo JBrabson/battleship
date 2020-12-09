@@ -43,4 +43,9 @@ class Test < Minitest::Test
     assert_equal 2, cell.ship.health
     assert_equal true, cell.fired_upon?
   end
+
+  def test_it_can_render
+    cell_1 = Cell.new("B4")
+    assert_equal ".", cell_1.render
+  end
 end
