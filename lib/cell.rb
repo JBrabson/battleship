@@ -30,11 +30,11 @@ class Cell
   def render(reveal = false)
     if ship_is_dead
       "X"
-    elsif @ship.nil? && @been_fired == true
+    elsif air_shot
       "M"
     elsif reveal == true && @ship != nil
       "S"
-    elsif @been_fired == true && @ship != nil
+    elsif ship_is_hit
       "H"
     else
       "."
@@ -43,5 +43,13 @@ class Cell
 
   def ship_is_dead
     @ship != nil && @ship.sunk?
+  end
+
+  def air_shot
+    @ship.nil? && @been_fired == true
+  end
+
+  def ship_is_hit
+    @been_fired == true && @ship != nil
   end
 end
