@@ -55,7 +55,6 @@ class Test < Minitest::Test
     cell_2.place_ship(cruiser)
 
     assert_equal ".", cell_2.render
-
     assert_equal "S", cell_2.render(true)
 
     cell_2.fire_upon
@@ -65,7 +64,6 @@ class Test < Minitest::Test
     cruiser.hit
     cruiser.hit
     assert_equal true, cruiser.sunk?
-
     assert_equal "X", cell_2.render
   end
 
