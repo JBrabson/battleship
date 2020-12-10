@@ -78,4 +78,18 @@ class Test < Minitest::Test
     cell_1.fire_upon
     assert_equal true, cell_1.ship_is_dead
   end
+
+  def test_air_shot
+    cell_1 = Cell.new("A4")
+    cell_1.fire_upon
+    assert_equal true, cell_1.air_shot
+  end
+
+  def test_ship_is_hit
+    cell_1 = Cell.new("A4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell_1.place_ship(cruiser)
+    cell_1.fire_upon
+    assert_equal true, cell_1.ship_is_hit
+  end
 end
