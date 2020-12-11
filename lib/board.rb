@@ -25,4 +25,15 @@ class Board
   def valid_coordinate?(coordinate_str)
     @cells.include?(coordinate_str)
   end
+
+  def valid_placement?(ship, coordinate_str)
+    if ship == @cruiser && coordinate_str.count == 3
+      true
+    elsif
+      ship == @submarine && coordinate_str == 2
+      true
+    else
+      false
+    end
+  end
 end
