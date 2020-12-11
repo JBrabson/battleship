@@ -33,7 +33,7 @@ class Board
         letters << coor[0]
         numbers << coor[1].to_i
       end
-    if length_valid?(ship, coordinate_ary) && letters.sort == letters && numbers.sort.each_cons(1).all? { |x,y| y == x + 1 }
+    if length_valid?(ship, coordinate_ary) && same_letter_different_number?(letters, numbers) && numbers.sort.each_cons(1).all? { |x,y| y == x + 1 }
       true
     else
       false
@@ -42,5 +42,9 @@ class Board
 
   def length_valid?(ship, coordinate_ary)
     ship.length == coordinate_ary.length
+  end
+
+  def same_letter_different_number?(letters, numbers)
+    letters.sort == letters && numbers.sort.each_cons(1).all? { |x,y| y == x }
   end
 end
