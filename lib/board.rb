@@ -27,6 +27,16 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_ary)
-    ship.length == coordinate_ary.length
+    letters = []
+    numbers = []
+    coordinate_ary.each do |coor|
+        letters << coor[0]
+        numbers << coor[1].to_i
+      end
+    if ship.length == coordinate_ary.length && letters.sort == letters && numbers.sort.each_cons(1).all? { |x,y| y == x + 1 }
+      true
+    else
+      false
+    end
   end
 end
