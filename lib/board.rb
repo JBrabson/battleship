@@ -61,6 +61,24 @@ class Board
     end
     return letters, numbers
   end
+
+  def placement_is_valid?(ship_obj, coordinate_ary)
+    if coordinate_ary.each do |coor|
+        valid_coordinate?(coor)
+      end && valid_placement?(ship_obj, coordinate_ary)
+       true
+    else
+      false
+    end
+  end
+
+  def place(ship_obj, coordinate_ary)
+    if placement_is_valid?(ship_obj, coordinate_ary)
+      coordinate_ary.each do |coor|
+        @cells[coor].place_ship(ship_obj)
+      end
+    end
+  end
 end
 
 
