@@ -8,7 +8,6 @@ class BoardTest < Minitest::Test
 
   def test_it_exists
     board = Board.new
-
     assert_instance_of Board, board
   end
 
@@ -43,7 +42,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_validates_placement
-    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -52,7 +50,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_confirms_coordinates_consecutive
-    # skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -63,7 +60,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_confirms_coordinates_not_diagonal
-    #skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -71,8 +67,7 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_placement?(submarine, ["C2", "D3"])
   end
 
-  def test_of_length_valid
-    #skip
+  def test_of_length_valid_helper
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -85,6 +80,37 @@ class BoardTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
     assert_equal true, board.valid_placement?(submarine, ["A1", "A2"])
-    # assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
+    assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
+    assert_equal true, board.valid_placement?(submarine, ["D1", "D2"])
+    assert_equal true, board.valid_placement?(cruiser, ["C2", "C3", "C4"])
+  end
+
+  def test_split_coordinate_array_helper
+    board = Board.new
+    coordinates = ["A1", "C3"]
+    letters = [65, 67]
+    numbers = [1, 3]
+    expected = letters, numbers
+    assert_equal expected, board.split_coordinate_array(coordinates)
+  end
+
+  def test_same_number_different_letter_helper
+    board = Board.new
+    letters = [65, 66, 67]
+    numbers = [1, 1, 1]
+    assert_equal true, board.same_number_different_letter?(letters, numbers)
+    letters = [65, 66, 67]
+    numbers = [1, 1, 2]
+    assert_equal false, board.same_number_different_letter?(letters, numbers)
+  end
+
+  def test_same_letter_different_number_helper
+    board = Board.new
+    letters = [65, 65, 65]
+    numbers = [1, 2, 3]
+    assert_equal true, board.same_letter_different_number?(letters, numbers)
+    letters = [65, 66, 65]
+    numbers = [2, 3, 4]
+    assert_equal false, board.same_letter_different_number?(letters, numbers)
   end
 end
