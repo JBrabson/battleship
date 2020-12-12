@@ -83,6 +83,7 @@ class BoardTest < Minitest::Test
     assert_equal true, board.valid_placement?(cruiser, ["B1", "C1", "D1"])
     assert_equal true, board.valid_placement?(submarine, ["D1", "D2"])
     assert_equal true, board.valid_placement?(cruiser, ["C2", "C3", "C4"])
+    assert_equal true, board.valid_placement?(cruiser, ["X2", "X3", "X4"])
   end
 
   def test_split_coordinate_array_helper
@@ -126,5 +127,14 @@ class BoardTest < Minitest::Test
     assert_equal cruiser, cell_1.ship
     assert_equal cruiser, cell_2.ship
     assert_equal cruiser, cell_2.ship
+    actual = cell_3.ship == cell_2.ship
+    assert_equal true, actual
+  end
+
+  def test_placement_is_valid_helper
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    coordinates = ["A1", "A2", "A3"]
+    assert_equal true, board.placement_is_valid?(cruiser, coordinates)
   end
 end
