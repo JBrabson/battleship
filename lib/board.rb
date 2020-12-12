@@ -27,13 +27,13 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_ary)
-    letters = []
-    numbers = []
-    coordinate_ary.each do |coor|
-        letters << coor[0].ord
-        numbers << coor[1].to_i
-      end
-    if (same_number_different_letter?(letters, numbers) || same_letter_different_number(letters, numbers)) && length_valid?(ship, coordinate_ary)
+    if (length_valid?(ship, coordinate_ary) == false)
+      return false
+    end
+    letters, numbers = split_coordinate_array(coordinate_ary)
+    if (!same_number_different_letter?(letters, numbers)) && (same_letter_different_number?(letters, numbers))
+      true
+    elsif (same_number_different_letter?(letters, numbers)) && (!same_letter_different_number?(letters, numbers))
       true
     else
       false
@@ -45,13 +45,22 @@ class Board
   end
 
   def same_number_different_letter?(letters, numbers)
-    # require 'pry'; binding.pry
-    letters.sort.each_cons(1).all? { |x,y| y == x + 1 } && (numbers.uniq.length == 1)
+    (letters.each_cons(2).all? { |x,y| y == x + 1 }) && (numbers.uniq.length == 1)
   end
 
-  def same_letter_different_number(letters, numbers)
-    (numbers.sort.each_cons(1).all? { |x,y| y == x + 1 }) && letters.sort.each_cons(1).all? { |x,y| y == x }
+  def same_letter_different_number?(letters, numbers)
+    (numbers.each_cons(2).all? { |x,y| y == x + 1 }) && (letters.uniq.length == 1)
+  end
+
+  def split_coordinate_array(coordinate_ary)
+    letters = []
+    numbers = []
+    coordinate_ary.each do |coor|
+        letters << coor[0].ord
+        numbers << coor[1].to_i
+    end
+    return letters, numbers
   end
 end
 
-#numbers.sort.each_cons(1).all? { |x,y| y == x }
+
