@@ -14,4 +14,12 @@ class PlayerTest < Minitest::Test
     player_1 = Player.new(player_cruiser, player_submarine, player_board)
     assert_instance_of Player, player_1
   end
+
+  def test_it_has_attributes
+    player_cruiser = Ship.new("Cruiser", 3)
+    player_submarine = Ship.new("Submarine", 2)
+    player_board = Board.new
+    player_1 = Player.new(player_cruiser, player_submarine, player_board)
+    assert_equal player_cruiser, player_1.ship_1
+  end
 end
