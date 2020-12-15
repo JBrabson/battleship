@@ -21,5 +21,7 @@ class PlayerTest < Minitest::Test
     player_board = Board.new
     player_1 = Player.new(player_cruiser, player_submarine, player_board)
     assert_equal player_cruiser, player_1.ship_1
+    assert_equal player_submarine, player_1.ship_2
+    assert_equal player_board, player_1.player_board
   end
 end
