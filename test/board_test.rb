@@ -158,4 +158,12 @@ class BoardTest < Minitest::Test
     coordinates = ["D1", "D3"]
     assert_equal false, board.check(coordinates)
   end
+
+  def test_it_can_render_board
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", board.render(true)
+  end
 end
