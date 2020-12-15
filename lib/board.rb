@@ -26,10 +26,15 @@ class Board
     @cells.include?(coordinate_str)
   end
 
-  def valid_placement?(ship, coordinate_ary)
-    if (length_valid?(ship, coordinate_ary) == false)
-      return false
+  def valid_placement?(ship_obj, coordinate_ary)
+    if (length_valid?(ship_obj, coordinate_ary)) && not_overlap?(coordinate_ary)
+      check(coordinate_ary)
+    else
+      false
     end
+  end
+
+  def check(coordinate_ary)
     letters, numbers = split_coordinate_array(coordinate_ary)
     if (!same_number_different_letter?(letters, numbers)) && (same_letter_different_number?(letters, numbers))
       true
@@ -40,8 +45,8 @@ class Board
     end
   end
 
-  def length_valid?(ship, coordinate_ary)
-    ship.length == coordinate_ary.length
+  def length_valid?(ship_obj, coordinate_ary)
+    ship_obj.length == coordinate_ary.length
   end
 
   def same_number_different_letter?(letters, numbers)
@@ -61,6 +66,28 @@ class Board
     end
     return letters, numbers
   end
+
+  def placement_is_valid?(ship_obj, coordinate_ary)
+    if coordinate_ary.each do |coor|
+        valid_coordinate?(coor)
+      end && valid_placement?(ship_obj, coordinate_ary)
+       true
+    else
+      false
+    end
+  end
+
+  def place(ship_obj, coordinate_ary)
+    if placement_is_valid?(ship_obj, coordinate_ary)
+      coordinate_ary.each do |coor|
+        @cells[coor].place_ship(ship_obj)
+      end
+    end
+  end
+
+  def not_overlap?(coordinate_ary)
+    coordinate_ary.all? do |coor|
+      @cells[coor].empty?
+    end
+  end
 end
-
-
