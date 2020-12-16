@@ -10,4 +10,7 @@ class Player
     @player_board = player_board
   end
 
+  def position_ship(ship_obj, coordinate_ary)
+    @player_board.place(ship_obj, coordinate_ary)
+  end
 end
