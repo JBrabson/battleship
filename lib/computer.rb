@@ -17,4 +17,9 @@ class Computer
 		coordinate_ary = @possible_three_place.sample
 		computer_board.place(ship_1, coordinate_ary)
 	end
+
+	def position_enemy_ship_2(ship_2, coordinate_ary)
+		coordinate_ary = @possible_two_place.sample
+		computer_board.place(ship_2, coordinate_ary)
+	end
 end

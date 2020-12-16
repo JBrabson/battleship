@@ -25,12 +25,4 @@ class ComputerTest < Minitest::Test
 		assert_equal [["A1, A2", "A3"], ["B3", "C3", "D3"], ["D2", "D3", "D4"]], computer.possible_three_place
 		assert_equal [["B1", "C1"], ["B4", "C4"], ["B2", "C2"]], computer.possible_two_place
 	end
-
-	# def test_places_enemy_ship_1
-	# 	cruiser = Ship.new("Cruiser", 3)
-	# 	submarine = Ship.new("Submarine", 2)
-	# 	computer = Computer.new(cruiser, submarine)
-	# 	possible_coordinates = [["A1, A2", "A3"], ["B3", "C3", "D3"], ["D2", "D3", "D4"]]
-	# 	assert_equal true, possible_coordinates.include?(computer.position_enemy_ship_1(cruiser, possible_coordinates))
-	# end
 end
