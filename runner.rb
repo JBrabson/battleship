@@ -3,10 +3,12 @@ require "./lib/player.rb"
 require "./lib/ship.rb"
 require "./lib/board.rb"
 require "./lib/cell.rb"
+require "./lib/text.rb"
 
-p "Welcome to Battleship"
+txt = Text.new
+txt.welcome
 sleep(1)
-p "Enter p to play. Enter q to quit."
+txt.play
 choice = gets.chomp
 if choice == "p"
   player_cruiser = Ship.new("Cruiser", 3)
@@ -17,57 +19,61 @@ if choice == "p"
   computer_board = Board.new
   computer = Computer.new(enemy_cruiser, enemy_submarine)
   player = Player.new(player_cruiser, player_submarine, player_board)
+
   computer.position_enemy_ship_1(enemy_cruiser)
   computer.position_enemy_ship_2(enemy_submarine)
-  p "I have laid out my ships on the grind."
-
-  p "You now need to lay out your two ship."
-  p "The #{player_cruiser.name} is three units long and the #{player_submarine.name} is two units long."
+  txt.ship_layout
   puts player.player_board.render(false)
-  p "Enter the squares for the #{player_cruiser.name}"
-  p "Enter first square"
+  txt.place_cruiser
+  txt.coordinate_1
   cruiser_coor1 = gets.chomp.upcase
-  p "Enter second square"
+  txt.coordinate_2
   cruiser_coor2 = gets.chomp.upcase
-  p "Enter third square"
+  txt.coordinate_3
   cruiser_coor3 = gets.chomp.upcase
   cruiser_coordinates = ["#{cruiser_coor1}", "#{cruiser_coor2}", "#{cruiser_coor3}"]
-  p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+  if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+    txt.invalid_coordinate
+  end
   until player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == true do
-    p "You now need to lay out your two ships."
-    p "The #{player_cruiser.name} is three units long and the #{player_submarine.name} is two units long."
+    txt.place_cruiser
     puts player.player_board.render(false)
-    p "Enter the squares for the #{player_cruiser.name}"
-    p "Enter first square"
+    txt.coordinate_1
     cruiser_coor1 = gets.chomp.upcase
-    p "Enter second square"
+    txt.coordinate_2
     cruiser_coor2 = gets.chomp.upcase
-    p "Enter third square"
+    txt.coordinate_3
     cruiser_coor3 = gets.chomp.upcase
     cruiser_coordinates = ["#{cruiser_coor1}", "#{cruiser_coor2}", "#{cruiser_coor3}"]
-    p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+    if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+      txt.invalid_coordinate
+    end
   end
   player.position_ship(player_cruiser, cruiser_coordinates)
-  p "Your #{player_cruiser.name} is set and ready to fire."
+  txt.set
   puts player.player_board.render(true)
-  p "Enter the squares for the #{player_submarine.name}"
-  p "Enter first square"
+  txt.place_submarine
+  txt.coordinate_1
   sub_coor1 = gets.chomp.upcase
-  p "Enter second square"
+  txt.coordinate_2
   sub_coor2 = gets.chomp.upcase
   submarine_coordinates = ["#{sub_coor1}", "#{sub_coor2}"]
-  p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_submarine, submarine_coordinates) == false)
+  if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+    txt.invalid_coordinate
+  end
   until player.player_board.valid_placement?(player_submarine, submarine_coordinates) == true
-    p "Enter the squares for the #{player_submarine.name}"
-    p "Enter first square"
+    txt.place_submarine
+    txt.coordinate_1
     sub_coor1 = gets.chomp.upcase
-    p "Enter second square"
+    txt.coordinate_2
     sub_coor2 = gets.chomp.upcase
     submarine_coordinates = ["#{sub_coor1}", "#{sub_coor2}"]
-    p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_submarine, submarine_coordinates) == false)
+    if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+      txt.invalid_coordinate
+    end
   end
   player.position_ship(player_submarine, submarine_coordinates)
-  p "Your #{player_submarine.name} is set and ready to fire."
+  txt.set
   puts player.player_board.render(true)
   sleep(2)
   until player.total_health == 0 || computer.total_health == 0 do
@@ -78,11 +84,13 @@ if choice == "p"
     puts player.player_board.render(true)
     sleep(1)
     # Player shoots
-    p "Enter the coordinate for your shot:"
+    txt.take_aim
     shot_input = gets.chomp.upcase
-    p "Please enter a valid coordinate:" if player.player_board.valid_coordinate?(shot_input)
+    if player.player_board.valid_coordinate?(shot_input) == false
+      txt.invalid_coordinate
+    end
     computer.computer_board.cells[shot_input].fire_upon
-    p "Shooting Computer"
+    txt.fire
     sleep(1)
     if computer.computer_board.cells[shot_input].render == "H"
       computer.reduce_health_by_1
@@ -107,18 +115,9 @@ if choice == "p"
     else
       p "My aim is off. Gotta hit the range."
     end
-
-
   end
-
-
-  require "pry"; binding.pry
-
-
 elsif choice == "q"
-p "Come Back Soon"
-
+  txt.lost
 else
-  p "Sorry"
-
+  txt.final_message
 end
