@@ -21,22 +21,7 @@ if choice == "p"
   computer.position_enemy_ship_2(enemy_submarine)
   p "I have laid out my ships on the grind."
 
-  # Placing Cruiser
   p "You now need to lay out your two ship."
-p "The #{player_cruiser.name} is three units long and the #{player_submarine.name} is two units long."
-puts player.player_board.render(false)
-p "Enter the squares for the #{player_cruiser.name}"
-p "Enter first square"
-cruiser_coor1 = gets.chomp.upcase
-p "Enter second square"
-cruiser_coor2 = gets.chomp.upcase
-p "Enter third square"
-cruiser_coor3 = gets.chomp.upcase
-cruiser_coordinates = ["#{cruiser_coor1}", "#{cruiser_coor2}", "#{cruiser_coor3}"]
-p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
-# Loop for invalid coordinates for cruiser
-until player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == true do
-  p "You now need to lay out your two ships."
   p "The #{player_cruiser.name} is three units long and the #{player_submarine.name} is two units long."
   puts player.player_board.render(false)
   p "Enter the squares for the #{player_cruiser.name}"
@@ -48,24 +33,23 @@ until player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) 
   cruiser_coor3 = gets.chomp.upcase
   cruiser_coordinates = ["#{cruiser_coor1}", "#{cruiser_coor2}", "#{cruiser_coor3}"]
   p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
-end
-player.position_ship(player_cruiser, cruiser_coordinates)
-p "Your #{player_cruiser.name} is set and ready to fire."
-puts player.player_board.render(true)
-
-# Placing Submarine
-
-p "Enter the squares for the #{player_submarine.name}"
-p "Enter first square"
-sub_coor1 = gets.chomp.upcase
-p "Enter second square"
-sub_coor2 = gets.chomp.upcase
-submarine_coordinates = ["#{sub_coor1}", "#{sub_coor2}"]
-p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_submarine, submarine_coordinates) == false)
-
-# Loop for invalid submarine coordinates
-
-until player.player_board.valid_placement?(player_submarine, submarine_coordinates) == true
+  until player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == true do
+    p "You now need to lay out your two ships."
+    p "The #{player_cruiser.name} is three units long and the #{player_submarine.name} is two units long."
+    puts player.player_board.render(false)
+    p "Enter the squares for the #{player_cruiser.name}"
+    p "Enter first square"
+    cruiser_coor1 = gets.chomp.upcase
+    p "Enter second square"
+    cruiser_coor2 = gets.chomp.upcase
+    p "Enter third square"
+    cruiser_coor3 = gets.chomp.upcase
+    cruiser_coordinates = ["#{cruiser_coor1}", "#{cruiser_coor2}", "#{cruiser_coor3}"]
+    p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_cruiser, cruiser_coordinates) == false)
+  end
+  player.position_ship(player_cruiser, cruiser_coordinates)
+  p "Your #{player_cruiser.name} is set and ready to fire."
+  puts player.player_board.render(true)
   p "Enter the squares for the #{player_submarine.name}"
   p "Enter first square"
   sub_coor1 = gets.chomp.upcase
@@ -73,15 +57,20 @@ until player.player_board.valid_placement?(player_submarine, submarine_coordinat
   sub_coor2 = gets.chomp.upcase
   submarine_coordinates = ["#{sub_coor1}", "#{sub_coor2}"]
   p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_submarine, submarine_coordinates) == false)
-end
-player.position_ship(player_submarine, submarine_coordinates)
-p "Your #{player_submarine.name} is set and ready to fire."
-puts player.player_board.render(true)
-sleep(2)
-
-# Loop for Turn!
-
-until player.total_health == 0 || computer.total_health == 0 do
+  until player.player_board.valid_placement?(player_submarine, submarine_coordinates) == true
+    p "Enter the squares for the #{player_submarine.name}"
+    p "Enter first square"
+    sub_coor1 = gets.chomp.upcase
+    p "Enter second square"
+    sub_coor2 = gets.chomp.upcase
+    submarine_coordinates = ["#{sub_coor1}", "#{sub_coor2}"]
+    p "Invalid Coordinates --ERROR--" if (player.player_board.valid_placement?(player_submarine, submarine_coordinates) == false)
+  end
+  player.position_ship(player_submarine, submarine_coordinates)
+  p "Your #{player_submarine.name} is set and ready to fire."
+  puts player.player_board.render(true)
+  sleep(2)
+  until player.total_health == 0 || computer.total_health == 0 do
     p "=============COMPUTER BOARD============="
     puts computer.computer_board.render
     sleep(1)
@@ -133,6 +122,3 @@ else
   p "Sorry"
 
 end
-
-
-
