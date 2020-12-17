@@ -79,7 +79,60 @@ p "Your #{player_submarine.name} is set and ready to fire."
 puts player.player_board.render(true)
 sleep(2)
 
+# Loop for Turn!
 
+until player.total_health == 0 || computer.total_health == 0 do
+    p "=============COMPUTER BOARD============="
+    puts computer.computer_board.render
+    sleep(1)
+    p "==============PLAYER BOARD=============="
+    puts player.player_board.render(true)
+    sleep(1)
+    # Player shoots
+    p "Enter the coordinate for your shot:"
+    shot_input = gets.chomp.upcase
+    p "Please enter a valid coordinate:" if player.player_board.valid_coordinate?(shot_input)
+    computer.computer_board.cells[shot_input].fire_upon
+    p "Shooting Computer"
+    sleep(1)
+    if computer.computer_board.cells[shot_input].render == "H"
+      computer.reduce_health_by_1
+      p "Good Job. Your shot #{shot_input} was a direct hit."
+    elsif computer.computer_board.cells[shot_input].render == "X"
+      ship_name = computer.computer_board.cells[shot_input].ship.name
+      computer.reduce_health_by_1
+      p "My #{ship_name} now rests in the Davy Jones locker."
+    else
+      p "Your #{shot_input} was a total miss!!! Better luck next time."
+    end
+    # Computer shoots
+    player.player_board.cells[computer.computer_shot].fire_upon
+    if player.player_board.cells[computer.computer_shot].render == "H"
+      ship_name = player.player_board.cells[computer.computer_shot].ship.name
+      player.reduce_health_by_1
+      p "I hit your #{ship_name} on #{computer.computer_shot}!!!"
+    elsif player.player_board.cells[computer.computer_shot].render == "X"
+      ship_name = player.player_board.cells[computer.computer_shot].ship.name
+      player.reduce_health_by_1
+      p "Your #{ship_name} is fish food!!!"
+    else
+      p "My aim is off. Gotta hit the range."
+    end
+
+
+  end
+
+
+  require "pry"; binding.pry
+
+
+elsif choice == "q"
+p "Come Back Soon"
+
+else
+  p "Sorry"
+
+end
 
 
 
