@@ -36,7 +36,7 @@ class Cell
       "X"
     elsif air_shot
       "M"
-    elsif reveal == true && @ship != nil
+    elsif reveal == true && @ship != nil && !ship_is_dead
       "S"
     elsif ship_is_hit
       "H"

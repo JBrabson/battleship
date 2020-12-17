@@ -86,8 +86,12 @@ if choice == "p"
     # Player shoots
     txt.take_aim
     shot_input = gets.chomp.upcase
-    if player.player_board.valid_coordinate?(shot_input) == false
+    if (player.player_board.valid_coordinate?(shot_input) == false)
       txt.invalid_coordinate
+    end
+    until (player.player_board.valid_coordinate?(shot_input) == true) do
+      txt.take_aim
+      shot_input = gets.chomp.upcase
     end
     computer.computer_board.cells[shot_input].fire_upon
     txt.fire
@@ -114,6 +118,13 @@ if choice == "p"
       p "Your #{ship_name} is fish food!!!"
     else
       p "My aim is off. Gotta hit the range."
+    end
+    if player.total_health == 0
+      txt.lost
+    elsif computer.total_health == 0
+      txt.win
+      sleep(2)
+      txt.winner
     end
   end
 elsif choice == "q"
