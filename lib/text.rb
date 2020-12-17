@@ -42,7 +42,7 @@ class Text
 	end
 
 	def set
-		p "Aye, aye. Battleships have been placed and ready for fire."
+		p "Aye, aye. Battleship have been placed and ready for fire."
 	end
 
 	def fire
@@ -51,6 +51,7 @@ class Text
 
 	def ship_sunk
 		p "Like vacations? Awesome. Safe travels on your one-way trip to Davy Jones' Locker!"
+	end
 
 	def take_aim
 		sleep(1)
@@ -80,12 +81,12 @@ class Text
 
 	def winner
 		puts """##      ## #### ##    ## ##    ## ######## ########
-##  ##  ##  ##  ###   ## ###   ## ##       ##     ##
-##  ##  ##  ##  ####  ## ####  ## ##       ##     ##
-##  ##  ##  ##  ## ## ## ## ## ## ######   ########
-##  ##  ##  ##  ##  #### ##  #### ##       ##   ##
-##  ##  ##  ##  ##   ### ##   ### ##       ##    ##
- ###  ###  #### ##    ## ##    ## ######## ##     ##  """
+		##  ##  ##  ##  ###   ## ###   ## ##       ##     ##
+		##  ##  ##  ##  ####  ## ####  ## ##       ##     ##
+		##  ##  ##  ##  ## ## ## ## ## ## ######   ########
+		##  ##  ##  ##  ##  #### ##  #### ##       ##   ##
+		##  ##  ##  ##  ##   ### ##   ### ##       ##    ##
+ 		###  ###  #### ##    ## ##    ## ######## ##     ##  """
   end
 
 	def lost
@@ -118,4 +119,6 @@ class Text
 
 	def final_message
 		p "Thank you. Please come again. (When you're ready for a real battle.)"
+	end
+
 end
